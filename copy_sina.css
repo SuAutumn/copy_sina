@@ -67,6 +67,7 @@ div.kuan_du{
 }
 
 div.fabu{
+	margin-top: 15px;
 	margin-bottom: 0px;
 	border-bottom: 1px solid #aaa;
 	word-wrap:break-word;/*对于单字节字符串 允许换行*/
@@ -74,4 +75,40 @@ div.fabu{
 div.time{
 	margin: 0px;
 	font-size: small;
+}
+
+div.txt_del_btn{
+	padding:5px 0;
+	width: 40px;
+	float: right;
+	font-size: small;
+	text-align: center;
+
+}
+a.txt_del_btn{
+	cursor: auto;
+	text-align: center;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top:  5px solid #000;
+	position: relative;
+	top: 10px;
+	
+}
+
+a{
+	text-decoration: none;
+}
+ul{
+	border: 1px solid #999;
+	background-color: #fff;
+	list-style-type: none;
+	margin: 0px;
+	padding-left: 0px;
+	display: none;
+}
+li {
+	padding: 5px;
+	
+
 }

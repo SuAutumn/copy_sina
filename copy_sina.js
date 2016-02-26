@@ -43,6 +43,9 @@ fabu.onclick=function test () {
 	target=document.createTextNode(target);
 	div_fabu.appendChild(target);
 
+	var txt_del_btn=F_txt_del_btn();
+
+	div.appendChild(txt_del_btn);
 	div.appendChild(div_fabu);
 	div.appendChild(div_time);
     body.insertBefore(div,body.children[3]);
@@ -50,6 +53,47 @@ fabu.onclick=function test () {
 	//alert(day);
 	//alert("11111111");
 };
+
+//写在事件外部
+var F_txt_del_btn=function  () {
+	var a=document.createElement("a");
+	a.className="txt_del_btn";
+	a.href="javascript:void(0)";
+
+	a.addEventListener("click",function  () {
+		ul.style.display=="none"?ul.style.display="block":ul.style.display="none";
+	});
+	//var i=document.createElement("i");
+	//i.appendChild(document.createTextNode(" V "));
+	//a.appendChild(i);
+
+
+	var div =document.createElement("div");
+    div.className="txt_del_btn";
+
+    var ul=document.createElement("ul");
+    
+    var list=["删除","置顶"];
+    for (var i = list.length - 1; i >= 0; i--) {
+    	var li=document.createElement("li");
+    	var aa=document.createElement("a");
+    	aa.href="javascript:void(0)";
+    	aa.appendChild(document.createTextNode(list[i]))
+        li.appendChild(aa);
+        ul.appendChild(li);
+    };
+
+    aa.addEventListener("click",function  () {
+    	body.removeChild(aa.parentNode.parentNode.parentNode.parentNode);
+    },false);
+    
+
+    div.appendChild(a);
+    div.appendChild(ul);
+    return div;
+
+}
+var a
 
 //设置底部时间
 //var time=document.getElementsByClassName("time")[0];
