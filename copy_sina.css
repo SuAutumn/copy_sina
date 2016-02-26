@@ -1,0 +1,77 @@
+body{
+	background-image: url(C:/users/zhpeng/desktop/copy_sina/body_bg.jpg);
+}
+
+div.send_text{
+	padding: 1px 10px;
+	background: #fff;
+	width: 600px;
+	margin: 0 auto;
+}
+
+textarea{
+	padding: 2px;
+	width: 580px;
+	height: 100px;
+	font-size: 15px;
+	border-color: red;
+	box-shadow: 
+}
+div.top{
+	margin: 10px 0;
+}
+div span{
+	/*text-align: left;*/
+	font-size: 14px;
+	color: #000;
+}
+span.count_char{
+	float:right;
+	margin-right: 14px;
+}
+
+time {
+	position: absolute;
+	bottom: 0;
+	color: black;
+	font-size: 12px;
+	height: 20px;
+    margin:auto;
+}
+
+p{
+	margin: 0;
+
+}
+div.input{
+	margin-bottom: 25px;
+	border: 1px #333;
+}
+
+input{
+	float: right;
+	margin-right: 14px;
+
+}
+
+/* js 建立元素*/
+div.append{
+	background-color: #fff;
+	width: 600px;
+	margin: 10px auto;
+	padding: 5px 10px;
+	font-size: 15px;
+}
+div.kuan_du{
+	width: 580px;
+}
+
+div.fabu{
+	margin-bottom: 0px;
+	border-bottom: 1px solid #aaa;
+	word-wrap:break-word;/*对于单字节字符串 允许换行*/
+}
+div.time{
+	margin: 0px;
+	font-size: small;
+}
