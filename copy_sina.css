@@ -79,10 +79,10 @@ div.time{
 
 div.txt_del_btn{
 	padding:5px 0;
-	width: 40px;
+	width: 110px;
 	float: right;
 	font-size: small;
-	text-align: center;
+	text-align: right;
 
 }
 a.txt_del_btn{
@@ -99,7 +99,8 @@ a.txt_del_btn{
 a{
 	text-decoration: none;
 }
-ul{
+ul.txt_del_btn{
+	width: auto;
 	border: 1px solid #999;
 	background-color: #fff;
 	list-style-type: none;

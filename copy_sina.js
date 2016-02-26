@@ -1,4 +1,4 @@
-var magon={};
+var magon=[{ul_display:0}];//数据容器
 
 var body=document.body;
 //body.style.backgroundImage="URL(http://img.t.sinajs.cn/t6/skin/skin026/images/body_bg.jpg?id=1410943047113)";
@@ -60,9 +60,7 @@ var F_txt_del_btn=function  () {
 	a.className="txt_del_btn";
 	a.href="javascript:void(0)";
 
-	a.addEventListener("click",function  () {
-		ul.style.display=="none"?ul.style.display="block":ul.style.display="none";
-	});
+	
 	//var i=document.createElement("i");
 	//i.appendChild(document.createTextNode(" V "));
 	//a.appendChild(i);
@@ -72,8 +70,9 @@ var F_txt_del_btn=function  () {
     div.className="txt_del_btn";
 
     var ul=document.createElement("ul");
+    ul.className="txt_del_btn ul_del";
     
-    var list=["删除","置顶"];
+    var list=["删除","置顶(disabled)"];
     for (var i = list.length - 1; i >= 0; i--) {
     	var li=document.createElement("li");
     	var aa=document.createElement("a");
@@ -82,8 +81,30 @@ var F_txt_del_btn=function  () {
         li.appendChild(aa);
         ul.appendChild(li);
     };
+   	
+   	//magon.push({k:0});
+   	//var len=magon.length;
+   	//magon[len-1].a_qur=len-1;
+	a.addEventListener("click",function  () {
+		
+		if (magon[0].ul_display===0){
+			magon[1]=ul;
+			ul.style.display="block";
+			magon[0].ul_display=1;
+		}else if(magon[1] != ul){
+			magon[1].style.display="none"
+			magon[1]=ul;
+			ul.style.display="block";
+			magon[0].ul_display=1;
+		}else {
+			ul.style.display="none";
+			magon[0].ul_display=0;
+		}
+		//ul.style.display="block";
+	},false);
 
     aa.addEventListener("click",function  () {
+
     	body.removeChild(aa.parentNode.parentNode.parentNode.parentNode);
     },false);
     
@@ -93,7 +114,14 @@ var F_txt_del_btn=function  () {
     return div;
 
 }
-var a
+body.addEventListener("click",function  (event) {
+
+	if (magon[0].ul_display==1 && event.target != "javascript:void(0)"){
+		magon[1].style.display="none";
+	}
+	
+},false)
+
 
 //设置底部时间
 //var time=document.getElementsByClassName("time")[0];
@@ -129,6 +157,7 @@ function w_input_f(event) {
 
 w_input.addEventListener("keyup",w_input_f,false);
 w_input.addEventListener("click",w_input_f,false);
+w_input.addEventListener("paste",w_input_f,false);//没有侦听到，待研究
 
 
 //html 中 disabled属性有问题，不得已写在js中
