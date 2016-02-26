@@ -54,7 +54,7 @@ fabu.onclick=function test () {
 	//alert("11111111");
 };
 
-//写在事件外部
+//写在事件外部,下拉删除按钮
 var F_txt_del_btn=function  () {
 	var a=document.createElement("a");
 	a.className="txt_del_btn";
@@ -118,6 +118,7 @@ body.addEventListener("click",function  (event) {
 
 	if (magon[0].ul_display==1 && event.target != "javascript:void(0)"){
 		magon[1].style.display="none";
+		magon[0].ul_display=0;
 	}
 	
 },false)
