@@ -1,3 +1,8 @@
+/*
+增加天气；
+*/
+
+
 var magon=[{ul_display:0}];//数据容器
 
 var body=document.body;
@@ -72,7 +77,7 @@ var F_txt_del_btn=function  () {
     var ul=document.createElement("ul");
     ul.className="txt_del_btn ul_del";
     
-    var list=["删除","置顶(disabled)"];
+    var list=["删除","置顶"];//,"推荐给好友"
     for (var i = list.length - 1; i >= 0; i--) {
     	var li=document.createElement("li");
     	var aa=document.createElement("a");
@@ -80,6 +85,23 @@ var F_txt_del_btn=function  () {
     	aa.appendChild(document.createTextNode(list[i]))
         li.appendChild(aa);
         ul.appendChild(li);
+        aa.addEventListener("click",function  (event) {
+        	if (event.target.firstChild.textContent=="删除") {
+        		body.removeChild(event.target.parentNode.parentNode.parentNode.parentNode);
+        		//alert(aa.firstChild.textContent);
+        		//alert(event.target.firstChild.textContent);
+        	} else if (event.target.firstChild.textContent=="置顶"){
+        		var div_up=event.target.parentNode.parentNode.parentNode.parentNode;
+
+        		event.target.parentNode.parentNode.style.display="none";
+        		magon[0].ul_display=0;
+
+        		body.removeChild(div_up);
+        		body.insertBefore(div_up,body.children[3]);
+        		//alert(event.target.parentNode.parentNode.parentNode.parentNode.className);
+        	}
+        	
+        },false);
     };
    	
    	//magon.push({k:0});
@@ -102,12 +124,6 @@ var F_txt_del_btn=function  () {
 		}
 		//ul.style.display="block";
 	},false);
-
-    aa.addEventListener("click",function  () {
-
-    	body.removeChild(aa.parentNode.parentNode.parentNode.parentNode);
-    },false);
-    
 
     div.appendChild(a);
     div.appendChild(ul);
@@ -164,6 +180,19 @@ w_input.addEventListener("paste",w_input_f,false);//没有侦听到，待研究
 //html 中 disabled属性有问题，不得已写在js中
 window.onload=function  (e) {
 	fabu.disabled="disabled";
+}
+
+function query_father (node_name,class_name,state) {
+	//在事件中作为event方法使用；
+	//node_name=目标节点；string
+	//class_name=目标类;string
+	//state=状态码 0：目标节点的子节点；1：目标节点；num
+	var node_name=node_name || 0;
+	var class_name=class_name || 0;
+	var state=state || 0;
+	while (this.target.parentNode.nodeName === node_name.toUpperCase() ){
+
+	}
 }
 
 //

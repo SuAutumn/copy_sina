@@ -16,7 +16,7 @@ textarea{
 	height: 100px;
 	font-size: 15px;
 	border-color: red;
-	box-shadow: 
+	box-shadow: ;
 }
 div.top{
 	margin: 10px 0;
@@ -81,7 +81,7 @@ div.time{
 
 div.txt_del_btn{
 	padding:5px 0;
-	width: 110px;
+	width: 50px;
 	float: right;
 	font-size: small;
 	text-align: right;
@@ -102,13 +102,15 @@ a{
 	text-decoration: none;
 }
 ul.txt_del_btn{
-	width: auto;
+	text-align: center;
+	width: inherit;
 	border: 1px solid #999;
 	background-color: #fff;
 	list-style-type: none;
 	margin: 0px;
 	padding-left: 0px;
 	display: none;
+	position: absolute;
 }
 li {
 	padding: 5px;
