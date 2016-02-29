@@ -86,18 +86,16 @@ var F_txt_del_btn=function  () {
         li.appendChild(aa);
         ul.appendChild(li);
         aa.addEventListener("click",function  (event) {
+        	var father=query_father(event);
         	if (event.target.firstChild.textContent=="删除") {
-        		body.removeChild(event.target.parentNode.parentNode.parentNode.parentNode);
+        		body.removeChild(father);
         		//alert(aa.firstChild.textContent);
         		//alert(event.target.firstChild.textContent);
         	} else if (event.target.firstChild.textContent=="置顶"){
-        		var div_up=event.target.parentNode.parentNode.parentNode.parentNode;
-
         		event.target.parentNode.parentNode.style.display="none";
         		magon[0].ul_display=0;
-
-        		body.removeChild(div_up);
-        		body.insertBefore(div_up,body.children[3]);
+        		body.removeChild(father);
+        		body.insertBefore(father,body.children[3]);
         		//alert(event.target.parentNode.parentNode.parentNode.parentNode.className);
         	}
         	
@@ -182,17 +180,16 @@ window.onload=function  (e) {
 	fabu.disabled="disabled";
 }
 
-function query_father (node_name,class_name,state) {
-	//在事件中作为event方法使用；
-	//node_name=目标节点；string
-	//class_name=目标类;string
-	//state=状态码 0：目标节点的子节点；1：目标节点；num
-	var node_name=node_name || 0;
-	var class_name=class_name || 0;
-	var state=state || 0;
-	while (this.target.parentNode.nodeName === node_name.toUpperCase() ){
-
+function query_father (event) {
+	//返回事件对应元素的父节点
+	//父节点为body元素的第一个子集；
+	var parent_node=event.target.parentNode;
+	while (parent_node.nodeName !== "BODY" ){
+		var previous=parent_node;
+		parent_node=parent_node.parentNode;
 	}
+	return previous;
+	//alert(count+node_name+class_name+state);
 }
 
 //
@@ -209,4 +206,4 @@ var Json_1={
 	"Oct":"10月",
 	"Nov":"11月",
 	"Dec":"12月"
-}
+};

@@ -1,5 +1,7 @@
 body{
 	background-image: url(./body_bg.jpg);
+	background-repeat: no-repeat;
+	background-color: rgb(62,39,21);
 }
 
 div.send_text{
