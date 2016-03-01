@@ -1,24 +1,76 @@
 body{
-	background-image: url(./body_bg.jpg);
+	font-family: sans-serif;
+	/*background-image: url(./body_bg.jpg);*/
 	background-repeat: no-repeat;
-	background-color: rgb(62,39,21);
+	background-color: rgb(245, 202, 169);
+	overflow: scroll;
+	margin: 0px;
+}
+
+div.top_fixed_nav{
+	background-color: white;
+	padding: 5px 100px;
+	margin: 0px;
+	height: 38px;
+	border-radius:3px;
+}
+
+div.solog{
+	font-family: "Microsoft YaHei";
+	display: inline-block;
+	float: left;
+	line-height: 38px;
+}
+
+div.login{
+	font-family: "Microsoft YaHei";
+	display: inline-block;
+	float: right;
+	line-height: 38px;
+	cursor: pointer;
+}
+}
+@-webkit-keyframes myfirst{
+	0% {background-color: red;top: 0px;}
+	25% {background-color: green;top: 50px;}
+	50% {background-color: blue;top: 100px;}
+	75% {background-color: pink;top: 150px;}
+	100% {background-color: white;top: 200px;}
+}
+
+
+div.weather{
+	-webkit-animation: myfirst 15s;
+	-o-animation: myfirst 5s;
+	animation: myfirst 5s;
+	float: left;
+	background-color: white;
+	width: 250px;
+	height: 320px;
+	margin: 0 0 0 105px;
+	border-radius: 3px;
+	position: relative;
+	top: 200px;
+	display: none;
+
 }
 
 div.send_text{
 	padding: 1px 10px;
 	background: #fff;
 	width: 600px;
-	margin: 0 auto;
+	margin: 8px auto;
 	border-radius: 3px;
 }
 
 textarea{
-	padding: 2px;
-	width: 580px;
+	padding: 0px;
+	width: 598px;
 	height: 100px;
 	font-size: 15px;
-	border-color: red;
-	box-shadow: ;
+	box-shadow: 0 0 1px 1px #ccc inset;
+	border-style: none;
+	resize:none;
 }
 div.top{
 	margin: 10px 0;
@@ -30,7 +82,6 @@ div span{
 }
 span.count_char{
 	float:right;
-	margin-right: 14px;
 }
 
 time {
@@ -47,21 +98,24 @@ p{
 
 }
 div.input{
-	margin-bottom: 25px;
+	margin-bottom: 30px;
 	border: 1px #333;
 }
 
 input{
 	float: right;
-	margin-right: 14px;
-
+	margin:4px 2px ;
+}
+input[type="button"]{
+	disable:disabled;
 }
 
 /* js 建立元素*/
 div.append{
+
 	background-color: #fff;
 	width: 600px;
-	margin: 10px auto;
+	margin: 8px auto;
 	padding: 5px 10px;
 	font-size: 15px;
 	border-radius: 3px;
@@ -113,9 +167,8 @@ ul.txt_del_btn{
 	padding-left: 0px;
 	display: none;
 	position: absolute;
+	border-radius: 3px;
 }
 li {
 	padding: 5px;
-	
-
 }

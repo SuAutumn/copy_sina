@@ -2,7 +2,7 @@
 增加天气；
 */
 
-
+"use strict"
 var magon=[{ul_display:0}];//数据容器
 
 var body=document.body;
@@ -198,7 +198,7 @@ var Json_1={
 	"Feb":"2月",
 	"Mar":"3月",
 	"Apr":"4月",
-	"Mar":"5月",
+	"May":"5月",
 	"Jun":"6月",
 	"Jul":"7月",
 	"Aug":"8月",
@@ -207,3 +207,43 @@ var Json_1={
 	"Nov":"11月",
 	"Dec":"12月"
 };
+
+function refreshPrice (arg1) {
+	var textarea=document.getElementsByClassName("w_input")[0];
+	textarea.value=arg1["0000001"].name;
+    //alert(arg1.0000001.name);
+}
+
+//promise 实践；
+//promise.then(fun).then(fun).catch(fun)
+//resolve执行then；resolve指向then里的函数
+//reject执行catch；reject指向catch里的函数
+//减少过多的嵌套；
+var prom={};
+var ddd=10
+prom.p=new Promise(function  (resolve,reject) {
+	console.log("start promise");
+	resolve(ddd);
+});
+function multiply (input) {
+	return new Promise(function  (resolve,reject) {
+		if (input>10) {
+			console.log("multiply:"+input+"x"+input);
+			resolve(input*input);
+		} else{
+			console.log("add:"+input+"+"+input);
+			reject(input+input)
+		};
+	});
+}
+
+//function multiply (input) {
+//	console.log(input*input);
+//}
+//prom.p.then(multiply)
+prom.p.then(multiply).then(function  (result) {
+	console.log("call then"+result);
+}).catch(function  (result) {
+	console.log("call catch"+result);
+});
+
