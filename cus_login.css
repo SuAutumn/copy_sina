@@ -1,0 +1,91 @@
+body{
+	font-family: Arial,"Microsoft YaHei",sans-serif;
+	/*background-image: url(./body_bg.jpg);*/
+	background-repeat: no-repeat;
+	background-color: rgb(245, 202, 169);
+	overflow: scroll;
+	margin: 0px;
+	cursor: default;
+	font-size: 14px;
+
+}
+div.top_fixed_nav{
+	background-color: rgba(255,255,255,0.6);
+	padding: 5px 100px;
+	margin: 0px;
+	height: 38px;
+	border-radius:3px;
+}
+div.solog{
+	font-family: "Microsoft YaHei";
+	font-weight: bold;
+	display: inline-block;
+	float: left;
+	line-height: 38px;
+}
+div.body{
+	width: 450px;
+	height: 250px;
+	margin: 8px auto;
+	background-color: rgba(255,255,255,0.2);
+	border-radius: 3px;
+	text-align: center;
+	background-image: url(./img/login01.jpg);
+}
+
+h1{
+	margin: 5px;
+	font-weight: lighter;
+	font-size: 16px;
+	display: inline-block;
+	line-height: 25px;
+	color: white;
+	font-family: "Microsoft YaHei";
+}
+div.loginBtn{
+	width: 60px;
+	height: 25px;
+	background-color: transparent;
+	border-radius: 3px;
+	cursor: pointer;
+	margin: 8px 181px ;
+	border-style: none;
+	box-shadow: 0 0 3px 1px #fff inset;
+}
+a{
+	line-height: 25px;
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+a.loginA{
+	padding: 7px 16px;
+}
+
+a.sigin{
+	color: #666;
+	text-decoration:underline;
+	font-size: small;
+	font-weight: lighter;
+}
+input.custoName,input.passwordText {
+	border-style: none;
+	margin: 0;
+	padding: 0;
+	border-radius: 3px;
+	line-height: 25px;
+	box-shadow: 0 0 2px 0px #666 inset;
+	color:#999;
+}
+div.namePass{
+	position: relative;
+	top: 74px;
+}
+div.sigin{
+	float: right;
+/* position: relative; */
+	position: relative;
+	top: 115px;
+	right: 5px;
+	bottom: 8px;
+}
