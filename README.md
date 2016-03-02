@@ -8,4 +8,4 @@ a exercise
 
 建议在chrome下查看，没有考虑兼容；
 
-3/2 初涉jQuery php
+3/2 初涉jQuery php，增加登入界面；
