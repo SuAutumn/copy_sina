@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Customer Login</title>
-	<link rel="stylesheet" href="cus_login.css">
+	<link rel="stylesheet" href="../css/cus_login.css">
 
 </head>
 <body>
@@ -22,7 +22,7 @@
 					<input class="passwordText" type="password">
 				</div>
 				<div class="loginBtn" >
-					<a class="loginA" href="copy01.html">登入</a>
+					<a class="loginA" href="test.php">登入</a>
 				</div>
 			</div>
 			
@@ -30,8 +30,7 @@
 		</div>
 	</div>
 	<script rel="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
-	<script rel="text/javascript" src="0101.js"></script>
-	<?php
-	 echo date("H:i");?>
+	<script rel="text/javascript" src="../js/0101.js"></script>
+
 </body>
 </html>

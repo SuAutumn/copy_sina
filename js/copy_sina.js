@@ -21,7 +21,7 @@ function compare_time (send_time) {
 	//................
 }
 
-var fabu=document.getElementsByClassName('cus_fabu')[0];
+var fabu=$('.cus_fabu')[0];
 if (w_input) {fabu.disabled=true} else{fabu.disabled=false};
 fabu.onclick=function test () {
 	var target=w_input.value;
@@ -35,12 +35,52 @@ fabu.onclick=function test () {
 	var div=document.createElement("div");
 	div.className="append";
 
-	//加入日期
+	//加入日期和天气
+	var weather="";
 	var div_time=document.createElement("div");
 	div_time.className="append kuan_du time";
-	var day=t_d();
 
-	div_time.appendChild(document.createTextNode(day));
+	/*$.ajax({
+		url:"weather/weather.json",
+		type:"get",
+		success:function  (data) {
+			weather=data['city']+":"+data['shuoming']+","+data['tempreture'];
+			var day=t_d();
+			div_time.appendChild(document.createTextNode(day+"  "+weather));
+		}
+	})*/
+	
+	$.ajax({
+		url:"weather/weather.html",
+		type:"get",
+		success:function  (data) {
+			//匹配html文字，储存在数组中
+			var local=$(".local")[0].firstChild.nodeValue;
+			var arr=[];
+			var pattern=/>(?:([^<]*))?</g;
+			var target=data.toString();
+
+			for (var i = 0,len = target.length ; i <len; i++) {
+				var result=pattern.exec(target);
+				if (result===null || result[1]===undefined || result[1] ==="\n"){
+					continue }else{
+						arr.push(result[1]);}
+			};
+			for (var i = arr.length - 1; i >= 0; i--) {
+				if (arr[i]===local){
+					var day=t_d();
+					div_time.appendChild(document.createTextNode(day+"  "+arr[i]+": 白天-"+arr[i+1]+" 夜间-"+arr[i+2]));
+					break;
+				}
+			};
+			magon.arr=arr;
+			console.log(arr);
+		},
+		error:function  (jqXHR) {
+			alert("请求失败: "+jqXHR.status);
+		},
+	});
+	
 
 	//加入发布内容
 	var div_fabu=document.createElement("div");
@@ -246,4 +286,32 @@ prom.p.then(multiply).then(function  (result) {
 }).catch(function  (result) {
 	console.log("call catch"+result);
 });
+
+//jquery
+$("img").click(function  () {
+	$.ajax({
+		url:"img/login.jpg",
+		type:"GET",
+		success:function  (data) {
+			alert("success");
+			$("img")[0].src="img/login.jpg";
+
+		},
+	});
+});
+
+$(".t_ajax").click(function  () {
+	alert("点击成功");
+	$.ajax({
+		url:"weather/weather.json",
+		type:"get",
+		success:function  (data) {
+			$(".t_ajax").html(data["city"]+":"+data["tempreture"]);
+		},
+		error:function  () {
+			alert("失败.");
+		}
+	});
+});
+
 
