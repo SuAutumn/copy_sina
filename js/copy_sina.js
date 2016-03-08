@@ -33,7 +33,8 @@ fabu.onclick=function test () {
 
 	//加入html中
 	var div=document.createElement("div");
-	div.className="append";
+	var c_name=Date.now().toString();
+	div.className="append "+c_name;
 
 	//加入日期和天气
 	var weather="";
@@ -53,31 +54,36 @@ fabu.onclick=function test () {
 	$.ajax({
 		url:"weather/weather.html",
 		type:"get",
+		cache:false,
 		success:function  (data) {
 			//匹配html文字，储存在数组中
-			var local=$(".local")[0].firstChild.nodeValue;
+			var local=$(".local").val();
 			var arr=[];
-			var pattern=/>(?:([^<]*))?</g;
-			var target=data.toString();
-
-			for (var i = 0,len = target.length ; i <len; i++) {
-				var result=pattern.exec(target);
-				if (result===null || result[1]===undefined || result[1] ==="\n"){
-					continue }else{
-						arr.push(result[1]);}
-			};
-			for (var i = arr.length - 1; i >= 0; i--) {
-				if (arr[i]===local){
-					var day=t_d();
-					div_time.appendChild(document.createTextNode(day+"  "+arr[i]+": 白天-"+arr[i+1]+" 夜间-"+arr[i+2]));
-					break;
+			//var pattern=/>(?:([^<]*))?</g;
+			var city=$("city",data);
+			var status1=$("status1",data);
+			var status2=$("status2",data);
+			var temperature1=$("temperature1",data);
+			var temperature2=$("temperature2",data);
+			for (var i = city.length - 1; i >= 0; i--) {
+				if (city[i].firstChild.nodeValue===local){
+					arr[0]=city[i].firstChild.nodeValue;
+					arr[1]=status1[i].firstChild.nodeValue;
+					arr[2]=status2[i].firstChild.nodeValue;
+					arr[3]=temperature1[i].firstChild.nodeValue;
+					arr[4]=temperature2[i].firstChild.nodeValue;
 				}
 			};
+			//console.log(arr);
+			//return;
+
+			var day=t_d();
+			div_time.appendChild(document.createTextNode(day+"  "+arr[0]+": 白天-"+arr[1]+arr[3]+"℃ 夜间-"+arr[2]+arr[4]+"℃"));
 			magon.arr=arr;
-			console.log(arr);
 		},
 		error:function  (jqXHR) {
-			alert("请求失败: "+jqXHR.status);
+			alert("请求失败: "+jqXHR.status+" "+jqXHR.readyState+"\n"+jqXHR);
+			console.log(jqXHR);
 		},
 	});
 	
@@ -93,7 +99,9 @@ fabu.onclick=function test () {
 	div.appendChild(txt_del_btn);
 	div.appendChild(div_fabu);
 	div.appendChild(div_time);
-    body.insertBefore(div,body.children[3]);
+    $(".body").after(div);
+    $("."+c_name).hide();
+    $("."+c_name).slideDown();
     count_chan.innerHTML="<strong>140</strong>";
 	//alert(day);
 	//alert("11111111");
@@ -136,19 +144,17 @@ var F_txt_del_btn=function  () {
         		magon[0].ul_display=0;
         		body.removeChild(father);
         		body.insertBefore(father,body.children[3]);
-        		//alert(event.target.parentNode.parentNode.parentNode.parentNode.className);
         	}
         	
         },false);
     };
    	
-   	//magon.push({k:0});
-   	//var len=magon.length;
-   	//magon[len-1].a_qur=len-1;
+
 	a.addEventListener("click",function  () {
 		
 		if (magon[0].ul_display===0){
 			magon[1]=ul;
+			//$(".ul_del").show("slow");
 			ul.style.display="block";
 			magon[0].ul_display=1;
 		}else if(magon[1] != ul){
@@ -160,7 +166,6 @@ var F_txt_del_btn=function  () {
 			ul.style.display="none";
 			magon[0].ul_display=0;
 		}
-		//ul.style.display="block";
 	},false);
 
     div.appendChild(a);
@@ -313,5 +318,4 @@ $(".t_ajax").click(function  () {
 		}
 	});
 });
-
 
