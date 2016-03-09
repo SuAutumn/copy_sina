@@ -117,7 +117,6 @@ input[type="button"]{
 
 /* js 建立元素*/
 div.append{
-
 	background-color: #fff;
 	width: 600px;
 	margin: 8px auto;
@@ -139,14 +138,12 @@ div.time{
 	margin: 0px;
 	font-size: small;
 }
-
 div.txt_del_btn{
 	padding:5px 0;
 	width: 50px;
 	float: right;
 	font-size: small;
 	text-align: right;
-
 }
 a.txt_del_btn{
 	cursor: auto;
@@ -166,7 +163,7 @@ a{
 ul.txt_del_btn{
 	text-align: center;
 	width: inherit;
-	border: 1px solid #999;
+	border: 1px solid #ddd;
 	background-color: #fff;
 	list-style-type: none;
 	margin: 0px;
@@ -174,6 +171,7 @@ ul.txt_del_btn{
 	display: none;
 	position: absolute;
 	border-radius: 3px;
+	box-shadow: 0 0 2px 0px #ddd ;
 }
 li {
 	padding: 5px;

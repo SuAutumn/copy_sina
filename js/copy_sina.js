@@ -3,242 +3,18 @@
 */
 
 "use strict"
-var magon=[{ul_display:0}];//数据容器
-
-var body=document.body;
-//body.style.backgroundImage="URL(http://img.t.sinajs.cn/t6/skin/skin026/images/body_bg.jpg?id=1410943047113)";
+var magon=[{ulDisplay:0}],//数据容器
+	body=document.body;
 
 //time and day
-function t_d () {
-	var time_arr=Date().split(" ");
-	var month=Json_1[time_arr[1]];
-	var hour=time_arr[4].split(":");
-	var day=month+time_arr[2]+"日   "+hour[0]+":"+hour[1];
+function getTime () {
+	var dataSplit=Date().split(" "),
+		month=monthJSON[dataSplit[1]],
+		hour=dataSplit[4].split(":"),
+		day=month+dataSplit[2]+"日   "+hour[0]+":"+hour[1];
 	return day;
 }
-
-function compare_time (send_time) {
-	//................
-}
-
-var fabu=$('.cus_fabu')[0];
-if (w_input) {fabu.disabled=true} else{fabu.disabled=false};
-fabu.onclick=function test () {
-	var target=w_input.value;
-	w_input.value="";
-	fabu.disabled="disabled";
-	// 替换掉 空格 和 换行符
-	target=target.replace(/\n| /g,"");
-
-
-	//加入html中
-	var div=document.createElement("div");
-	var c_name=Date.now().toString();
-	div.className="append "+c_name;
-
-	//加入日期和天气
-	var weather="";
-	var div_time=document.createElement("div");
-	div_time.className="append kuan_du time";
-
-	/*$.ajax({
-		url:"weather/weather.json",
-		type:"get",
-		success:function  (data) {
-			weather=data['city']+":"+data['shuoming']+","+data['tempreture'];
-			var day=t_d();
-			div_time.appendChild(document.createTextNode(day+"  "+weather));
-		}
-	})*/
-	
-	$.ajax({
-		url:"weather/weather.html",
-		type:"get",
-		cache:false,
-		success:function  (data) {
-			//匹配html文字，储存在数组中
-			var local=$(".local").val();
-			var arr=[];
-			//var pattern=/>(?:([^<]*))?</g;
-			var city=$("city",data);
-			var status1=$("status1",data);
-			var status2=$("status2",data);
-			var temperature1=$("temperature1",data);
-			var temperature2=$("temperature2",data);
-			for (var i = city.length - 1; i >= 0; i--) {
-				if (city[i].firstChild.nodeValue===local){
-					arr[0]=city[i].firstChild.nodeValue;
-					arr[1]=status1[i].firstChild.nodeValue;
-					arr[2]=status2[i].firstChild.nodeValue;
-					arr[3]=temperature1[i].firstChild.nodeValue;
-					arr[4]=temperature2[i].firstChild.nodeValue;
-				}
-			};
-			//console.log(arr);
-			//return;
-
-			var day=t_d();
-			div_time.appendChild(document.createTextNode(day+"  "+arr[0]+": 白天-"+arr[1]+arr[3]+"℃ 夜间-"+arr[2]+arr[4]+"℃"));
-			magon.arr=arr;
-		},
-		error:function  (jqXHR) {
-			alert("请求失败: "+jqXHR.status+" "+jqXHR.readyState+"\n"+jqXHR);
-			console.log(jqXHR);
-		},
-	});
-	
-
-	//加入发布内容
-	var div_fabu=document.createElement("div");
-	div_fabu.className="append kuan_du fabu";
-	target=document.createTextNode(target);
-	div_fabu.appendChild(target);
-
-	var txt_del_btn=F_txt_del_btn();
-
-	div.appendChild(txt_del_btn);
-	div.appendChild(div_fabu);
-	div.appendChild(div_time);
-    $(".body").after(div);
-    $("."+c_name).hide();
-    $("."+c_name).slideDown();
-    count_chan.innerHTML="<strong>140</strong>";
-	//alert(day);
-	//alert("11111111");
-};
-
-//写在事件外部,下拉删除按钮
-var F_txt_del_btn=function  () {
-	var a=document.createElement("a");
-	a.className="txt_del_btn";
-	a.href="javascript:void(0)";
-
-	
-	//var i=document.createElement("i");
-	//i.appendChild(document.createTextNode(" V "));
-	//a.appendChild(i);
-
-
-	var div =document.createElement("div");
-    div.className="txt_del_btn";
-
-    var ul=document.createElement("ul");
-    ul.className="txt_del_btn ul_del";
-    
-    var list=["删除","置顶"];//,"推荐给好友"
-    for (var i = list.length - 1; i >= 0; i--) {
-    	var li=document.createElement("li");
-    	var aa=document.createElement("a");
-    	aa.href="javascript:void(0)";
-    	aa.appendChild(document.createTextNode(list[i]))
-        li.appendChild(aa);
-        ul.appendChild(li);
-        aa.addEventListener("click",function  (event) {
-        	var father=query_father(event);
-        	if (event.target.firstChild.textContent=="删除") {
-        		body.removeChild(father);
-        		//alert(aa.firstChild.textContent);
-        		//alert(event.target.firstChild.textContent);
-        	} else if (event.target.firstChild.textContent=="置顶"){
-        		event.target.parentNode.parentNode.style.display="none";
-        		magon[0].ul_display=0;
-        		body.removeChild(father);
-        		body.insertBefore(father,body.children[3]);
-        	}
-        	
-        },false);
-    };
-   	
-
-	a.addEventListener("click",function  () {
-		
-		if (magon[0].ul_display===0){
-			magon[1]=ul;
-			//$(".ul_del").show("slow");
-			ul.style.display="block";
-			magon[0].ul_display=1;
-		}else if(magon[1] != ul){
-			magon[1].style.display="none"
-			magon[1]=ul;
-			ul.style.display="block";
-			magon[0].ul_display=1;
-		}else {
-			ul.style.display="none";
-			magon[0].ul_display=0;
-		}
-	},false);
-
-    div.appendChild(a);
-    div.appendChild(ul);
-    return div;
-
-}
-body.addEventListener("click",function  (event) {
-
-	if (magon[0].ul_display==1 && event.target != "javascript:void(0)"){
-		magon[1].style.display="none";
-		magon[0].ul_display=0;
-	}
-	
-},false)
-
-
-//设置底部时间
-//var time=document.getElementsByClassName("time")[0];
-//time.innerHTML="<p>"+Date()+"</p>";
-//time.style.fontSize="small";
-
-
-
-//计算文本框可输入数字
-var w_input=document.getElementsByClassName("w_input")[0];
-var count_chan=document.getElementsByClassName("count_chan")[0];
-
-function w_input_f(event) {
-	var k=0;
-	var target=w_input.value;
-	target=target.split("");
-
-	for (var i = target.length - 1; i >= 0; i--) {
-        try{
-        	var ok=target[i].charCodeAt(0);
-        	ok>250?k++:k=k+0.5;
-        }catch(err){
-        	k++;
-        }
-	};
-	k=Math.ceil(k);
-
-	//按钮可用否
-	(k==0 || k>140)?fabu.disabled="disabled":fabu.disabled="";
-	var kk=140-k;
-	count_chan.innerHTML="<strong>"+kk+"</strong>";
-}
-
-w_input.addEventListener("keyup",w_input_f,false);
-w_input.addEventListener("click",w_input_f,false);
-w_input.addEventListener("paste",w_input_f,false);//没有侦听到，待研究
-
-
-//html 中 disabled属性有问题，不得已写在js中
-window.onload=function  (e) {
-	fabu.disabled="disabled";
-}
-
-function query_father (event) {
-	//返回事件对应元素的父节点
-	//父节点为body元素的第一个子集；
-	var parent_node=event.target.parentNode;
-	while (parent_node.nodeName !== "BODY" ){
-		var previous=parent_node;
-		parent_node=parent_node.parentNode;
-	}
-	return previous;
-	//alert(count+node_name+class_name+state);
-}
-
-//
-var Json_1={
+var monthJSON={
 	"Jan":"1月",
 	"Feb":"2月",
 	"Mar":"3月",
@@ -253,8 +29,170 @@ var Json_1={
 	"Dec":"12月"
 };
 
+
+$(document).ready(function  () {
+	$(".cus_fabu").attr("disabled","disabled");
+});
+
+var wInput=$(".w_input"),
+	countNums=$(".count_chan");//count the textarea's number
+
+function wInputCount(event) {
+	var k=0,target=wInput.val();
+	target=target.split("");
+	for (var i = target.length - 1; i >= 0; i--) {
+        try{
+        	var ok=target[i].charCodeAt(0);
+        	ok>250?k++:k=k+0.5;
+        }catch(err){
+        	k++;
+        }
+	};
+	k=Math.ceil(k);
+	(k==0 || k>140)?$(".cus_fabu").attr("disabled","disabled"):$('.cus_fabu').removeAttr("disabled");
+	var kk=140-k;
+	countNums.html("<strong>"+kk+"</strong>");
+};
+
+wInput.keyup(wInputCount);
+wInput.click(wInputCount);
+
+//fabu button event
+$('.cus_fabu').click(function  () {
+	var target=wInput.val(),
+		getDate=Date.now(),
+		div=$("<div></div>").addClass("append "+getDate),
+		weather="",
+	    timeDiv=$("<div></div>").addClass("append kuan_du time");
+
+	target=target.replace(/\n| /g,"");// replace whitespace and \n;
+	//return when target==''
+	if (target) {
+		//skip
+	} else{
+		alert("文本不能为空!!!");
+		wInput.val("");
+		$(".cus_fabu").attr("disabled","disabled");
+		return;
+	};
+	wInput.val("");
+	$(".cus_fabu").attr("disabled","disabled");
+
+	//加入日期和天气
+
+	$.ajax({
+		url:"weather/weather.html",
+		type:"get",
+		cache:false,
+		success:function  (data) {
+			//匹配html文字，储存在数组中
+			var local=$(".local").val(),
+				xmlDataArr=$("weather",data),
+				day=getTime();
+			for (var i = xmlDataArr.length - 1; i >= 0; i--) {
+				if ($("city",xmlDataArr[i]).text()===local){
+					var weather=$("city",xmlDataArr[i]).text()
+					+": 白天-"+$("status1",xmlDataArr[i]).text()
+					+$("temperature1",xmlDataArr[i]).text()
+					+"℃ 夜间-"+$("status2",xmlDataArr[i]).text()
+					+$("temperature2",xmlDataArr[i]).text()+"℃"
+				}
+			};
+			timeDiv.text(day+"  "+weather);
+		},
+		error:function  (jqXHR) {
+			alert("请求失败: "+jqXHR.status+" "+jqXHR.readyState+"\n"+jqXHR);
+			console.log(jqXHR);
+		},
+	});
+	
+	//加入发布内容
+	var divDeclare=$('<div class="append kuan_du fabu"></div>').text(target),
+		txt_del_btn=F_txt_del_btn(getDate);
+
+	div.append(txt_del_btn);
+	div.append(divDeclare);
+	div.append(timeDiv);
+    $(".body").after(div);
+    $("."+getDate).hide();
+    $("."+getDate).slideDown();
+    countNums.innerHTML="<strong>140</strong>";
+});
+
+//写在事件外部,下拉删除按钮
+var F_txt_del_btn=function  (getDate) {
+	var a=$("<a class='txt_del_btn' href='javascript:void(0)'></a>"),
+	div =$("<div class='txt_del_btn'></div>"),
+	ul=$("<ul class='txt_del_btn ul_del'></ul>"),
+	list=["删除","置顶","赞"];//,"推荐给好友"
+
+    for (var i = list.length - 1; i >= 0; i--) {
+    	var li=$("<li></li>"),
+    	liChildA=$("<a href='javascript:void(0)'></a>").text(list[i]);
+
+        li.append(liChildA);
+        ul.append(li);
+        liChildA.click(function  (event) {
+        	if ($(event.target).text()==="删除") {
+        		$("."+getDate).remove();
+        	} else if ($(event.target).text()==="置顶"){
+        		$("."+getDate).slideUp("fast");
+        		$("."+getDate).hide();
+        		magon[0].ulDisplay=0;
+        		$(".body").after($("."+getDate));
+        		$("."+getDate).slideDown("fast");
+        	}
+        	
+        });
+    };
+   	
+
+	a.click(function  () {
+		if (magon[0].ulDisplay===0){
+			magon[1]=ul;
+			ul.slideDown("fast");
+			magon[0].ulDisplay=1;
+		}else if(magon[1] !== ul){
+			magon[1].slideUp("fast");
+			magon[1]=ul;
+			ul.slideDown("fast");
+			magon[0].ulDisplay=1;
+		}else {
+			ul.slideUp("fast");
+			magon[0].ulDisplay=0;
+		}
+	});
+    div.append(a);
+    div.append(ul);
+    return div;
+};
+
+$("body").click(function  (event) {
+	if (magon[0].ulDisplay ==1 && event.target != "javascript:void(0)"){
+		magon[1].slideUp("fast");
+		magon[0].ulDisplay=0;
+	}
+})
+
+
+
+function query_father (event) {
+	//返回事件对应元素的父节点
+	//父节点为body元素的第一个子集；
+	var parent_node=event.target.parentNode;
+	while (parent_node.nodeName !== "BODY" ){
+		var previous=parent_node;
+		parent_node=parent_node.parentNode;
+	}
+	return previous;
+	//alert(count+node_name+class_name+state);
+}
+
+//
+
+
 function refreshPrice (arg1) {
-	var textarea=document.getElementsByClassName("w_input")[0];
+	var textarea=document.getElementsByClassName("wInput")[0];
 	textarea.value=arg1["0000001"].name;
     //alert(arg1.0000001.name);
 }
