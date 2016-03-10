@@ -6,7 +6,6 @@ body{
 	overflow: scroll;
 	margin: 0px;
 	cursor: default;
-	font-size: 14px;
 
 }
 div.top_fixed_nav{
@@ -60,6 +59,7 @@ a{
 }
 a.loginA{
 	padding: 7px 16px;
+	font-size: 14px;
 }
 
 a.sigin{
@@ -88,4 +88,11 @@ div.sigin{
 	top: 115px;
 	right: 5px;
 	bottom: 8px;
+}
+
+div.promote{
+	color: red;
+	font-size: small;
+	padding-left: 15px;
+	line-height: 14px;
 }

@@ -1,16 +1,14 @@
 body{
-	font-family: Verdana,Arial,sans-serif;
-	/*background-image: url(./body_bg.jpg);*/
-	background-repeat: no-repeat;
+	font-family: 'MicrosoftYaHei',Verdana,Arial,sans-serif;
 	/*background-color: rgb(245, 202, 169);*/
-	background-color: #303030;
+	background-color: rgba(200,100,50,0.6);
 	overflow: scroll;
 	margin: 0px;
 	cursor: default;
 }
 
 div.top_fixed_nav{
-	background-color: rgba(255,255,255,0.6);
+	background-color: rgba(255,255,255,0.2);
 	padding: 5px 100px;
 	margin: 0px;
 	height: 38px;
@@ -47,23 +45,30 @@ div.weather{
 	-webkit-animation: myfirst 15s;
 	-o-animation: myfirst 5s;
 	animation: myfirst 5s;
-	float: left;
-	background-color: white;
-	width: 250px;
-	height: 320px;
-	margin: 0 0 0 105px;
+}
+div.frame{
+	background-image: url(../img/无锡.jpg);
+	background-repeat: no-repeat;
+	margin: 5px auto;
+	padding-top:5px; 
+	width: 960px;
+	height: 10000px;
+	background-color:rgba(183,194,226,1);
 	border-radius: 3px;
-	position: relative;
-	top: 200px;
-	display: none;
+}
+div.left{
+	float: left;
 
 }
-
+div.left ul{
+	text-align: left;
+	padding-left: 5px;
+}
 div.send_text{
 	padding: 1px 10px;
 	background: #fff;
 	width: 600px;
-	margin: 8px auto;
+	margin: 0px auto;
 	border-radius: 3px;
 }
 
@@ -88,14 +93,6 @@ span.count_char{
 	float:right;
 }
 
-time {
-	position: absolute;
-	bottom: 0;
-	color: black;
-	font-size: 12px;
-	height: 20px;
-    margin:auto;
-}
 
 p{
 	margin: 0;
@@ -111,10 +108,19 @@ input{
 	margin:4px 2px ;
 	cursor: pointer;
 }
-input[type="button"]{
-	disable:disabled;
-}
+div.local{
+	width: 960px;
+	background-color: transparent;
+	margin: 100px auto 8px ;
+	padding: 0;
+	border-top: 1px #999 solid;
+	font-size: small;
+	text-align: center;
 
+}
+ul{
+	list-style-type: none;
+}
 /* js 建立元素*/
 div.append{
 	background-color: #fff;
@@ -133,10 +139,6 @@ div.fabu{
 	margin-bottom: 0px;
 	border-bottom: 1px solid #aaa;
 	word-wrap:break-word;/*对于单字节字符串 允许换行*/
-}
-div.time{
-	margin: 0px;
-	font-size: small;
 }
 div.txt_del_btn{
 	padding:5px 0;
@@ -175,4 +177,6 @@ ul.txt_del_btn{
 }
 li {
 	padding: 5px;
+	font-size: small;
+
 }

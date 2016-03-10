@@ -9,7 +9,7 @@
 <body>
 	<div>
 		<div class="top_fixed_nav">
-			<div class="solog">Welcome to Paradise</div>
+			<div class="solog">模仿微博页面</div>
 		</div>
 		<div class="body">
 			<div class="namePass">
@@ -17,12 +17,13 @@
 					<h1 class="customer">账户：</h1>
 					<input class="custoName" type="text" value="邮箱或者手机号">
 				</div>
+				<div class="promote"></div>
 				<div>
 					<h1 class="password">密码：</h1>
 					<input class="passwordText" type="password">
 				</div>
 				<div class="loginBtn" >
-					<a class="loginA" href="test.php">登入</a>
+					<a class="send" href="javascript:void(0)">登入</a>
 				</div>
 			</div>
 			

@@ -3,7 +3,7 @@
 */
 
 "use strict"
-var magon=[{ulDisplay:0}],//数据容器
+var magon=[],//数据容器
 	body=document.body;
 
 //time and day
@@ -110,21 +110,19 @@ $('.cus_fabu').click(function  () {
 	var divDeclare=$('<div class="append kuan_du fabu"></div>').text(target),
 		txt_del_btn=F_txt_del_btn(getDate);
 
-	div.append(txt_del_btn);
-	div.append(divDeclare);
-	div.append(timeDiv);
-    $(".body").after(div);
+	div.append(txt_del_btn,divDeclare,timeDiv);
+    $("div.send_text").after(div);
     $("."+getDate).hide();
-    $("."+getDate).slideDown();
-    countNums.innerHTML="<strong>140</strong>";
+    $("."+getDate).slideDown("fast");
+    countNums.html("<strong>140</strong>");
 });
 
 //写在事件外部,下拉删除按钮
 var F_txt_del_btn=function  (getDate) {
 	var a=$("<a class='txt_del_btn' href='javascript:void(0)'></a>"),
-	div =$("<div class='txt_del_btn'></div>"),
-	ul=$("<ul class='txt_del_btn ul_del'></ul>"),
-	list=["删除","置顶","赞"];//,"推荐给好友"
+		div =$("<div class='txt_del_btn'></div>"),
+		ul=$("<ul class='txt_del_btn ul_del'></ul>"),
+		list=["删除","置顶","赞"];//,"推荐给好友"
 
     for (var i = list.length - 1; i >= 0; i--) {
     	var li=$("<li></li>"),
@@ -134,68 +132,39 @@ var F_txt_del_btn=function  (getDate) {
         ul.append(li);
         liChildA.click(function  (event) {
         	if ($(event.target).text()==="删除") {
-        		$("."+getDate).remove();
-        	} else if ($(event.target).text()==="置顶"){
         		$("."+getDate).slideUp("fast");
-        		$("."+getDate).hide();
-        		magon[0].ulDisplay=0;
-        		$(".body").after($("."+getDate));
-        		$("."+getDate).slideDown("fast");
+        		setTimeout(function() {
+        			$("."+getDate).remove();
+        		}, 2000);
+        	} else if ($(event.target).text()==="置顶"){
+        		if ($("."+getDate).attr("class")==$(".body").next().attr("class")){
+        			return;
+        		}else{
+        			$("."+getDate).hide();
+	        		$("div.send_text").after($("."+getDate));
+	        		$("."+getDate).slideDown("fast");
+        		}
         	}
-        	
         });
     };
-   	
-
-	a.click(function  () {
-		if (magon[0].ulDisplay===0){
-			magon[1]=ul;
-			ul.slideDown("fast");
-			magon[0].ulDisplay=1;
-		}else if(magon[1] !== ul){
-			magon[1].slideUp("fast");
-			magon[1]=ul;
-			ul.slideDown("fast");
-			magon[0].ulDisplay=1;
-		}else {
-			ul.slideUp("fast");
-			magon[0].ulDisplay=0;
-		}
-	});
-    div.append(a);
-    div.append(ul);
+    div.append(a,ul);
     return div;
 };
 
 $("body").click(function  (event) {
-	if (magon[0].ulDisplay ==1 && event.target != "javascript:void(0)"){
-		magon[1].slideUp("fast");
-		magon[0].ulDisplay=0;
+	if ($(event.target).attr("class") !=="txt_del_btn"){
+		$("ul.ul_del").slideUp("fast");
+	}else if($(event.target).attr("class") ==="txt_del_btn" 
+		&& $(event.target)[0].nodeName==="A"){
+		magon.a=$(event.target).next().css("display");
+		if ($(event.target).next().css("display")==="block") {
+			$("ul.ul_del").slideUp("fast");
+		} else{
+			$("ul.ul_del").slideUp("fast");
+			$(event.target).next().slideDown("fast");
+		};
 	}
-})
-
-
-
-function query_father (event) {
-	//返回事件对应元素的父节点
-	//父节点为body元素的第一个子集；
-	var parent_node=event.target.parentNode;
-	while (parent_node.nodeName !== "BODY" ){
-		var previous=parent_node;
-		parent_node=parent_node.parentNode;
-	}
-	return previous;
-	//alert(count+node_name+class_name+state);
-}
-
-//
-
-
-function refreshPrice (arg1) {
-	var textarea=document.getElementsByClassName("wInput")[0];
-	textarea.value=arg1["0000001"].name;
-    //alert(arg1.0000001.name);
-}
+});
 
 //promise 实践；
 //promise.then(fun).then(fun).catch(fun)
