@@ -17,11 +17,12 @@
 					<h1 class="customer">账户：</h1>
 					<input class="custoName" type="text" value="邮箱或者手机号">
 				</div>
-				<div class="promote"></div>
+				<div class="promote pCustomer"></div>
 				<div>
 					<h1 class="password">密码：</h1>
 					<input class="passwordText" type="password">
 				</div>
+				<div class="promote pPassword"></div>
 				<div class="loginBtn" >
 					<a class="send" href="javascript:void(0)">登入</a>
 				</div>

@@ -86,7 +86,7 @@ $('.cus_fabu').click(function  () {
 		cache:false,
 		success:function  (data) {
 			//匹配html文字，储存在数组中
-			var local=$(".local").val(),
+			var local=$(".location").text(),
 				xmlDataArr=$("weather",data),
 				day=getTime();
 			for (var i = xmlDataArr.length - 1; i >= 0; i--) {

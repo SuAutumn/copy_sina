@@ -133,7 +133,9 @@ div.append{
 div.kuan_du{
 	width: 580px;
 }
-
+div.time{
+	font-size: small;
+}
 div.fabu{
 	margin-top: 15px;
 	margin-bottom: 0px;
