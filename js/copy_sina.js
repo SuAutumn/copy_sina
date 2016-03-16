@@ -7,7 +7,7 @@ var magon=[],//数据容器
 	body=document.body;
 
 //time and day
-function getTime () {
+function getDay () {
 	var dataSplit=Date().split(" "),
 		month=monthJSON[dataSplit[1]],
 		hour=dataSplit[4].split(":"),
@@ -78,8 +78,7 @@ $('.cus_fabu').click(function  () {
 	wInput.val("");
 	$(".cus_fabu").attr("disabled","disabled");
 
-	//加入日期和天气
-
+	//request for local weather
 	$.ajax({
 		url:"weather/weather.html",
 		type:"get",
@@ -88,15 +87,15 @@ $('.cus_fabu').click(function  () {
 			//匹配html文字，储存在数组中
 			var local=$(".location").text(),
 				xmlDataArr=$("weather",data),
-				day=getTime();
+				day=getDay();
 			for (var i = xmlDataArr.length - 1; i >= 0; i--) {
 				if ($("city",xmlDataArr[i]).text()===local){
 					var weather=$("city",xmlDataArr[i]).text()
 					+": 白天-"+$("status1",xmlDataArr[i]).text()
 					+$("temperature1",xmlDataArr[i]).text()
 					+"℃ 夜间-"+$("status2",xmlDataArr[i]).text()
-					+$("temperature2",xmlDataArr[i]).text()+"℃"
-				}
+					+$("temperature2",xmlDataArr[i]).text()+"℃";
+				};
 			};
 			timeDiv.text(day+"  "+weather);
 		},
@@ -108,18 +107,55 @@ $('.cus_fabu').click(function  () {
 	
 	//加入发布内容
 	var divDeclare=$('<div class="append kuan_du fabu"></div>').text(target),
-		txt_del_btn=F_txt_del_btn(getDate);
+		txt_del_btn=F_txt_del_btn(getDate),
+		divBottom=createBottom("收藏","转发","赞");
 
-	div.append(txt_del_btn,divDeclare,timeDiv);
+	div.append(txt_del_btn,divDeclare,timeDiv,divBottom,createPromoteBox ());
     $("div.send_text").after(div);
     $("."+getDate).hide();
-    $("."+getDate).slideDown("fast");
+	$("."+getDate).slideDown("fast");
     countNums.html("<strong>140</strong>");
 });
 
+//生成 “收藏 转发 赞数”
+function createBottom () {
+	var items=Array.prototype.slice.call(arguments,0),
+		len=items.length,
+		div=$("<div class='bottomDock'></div>");
+
+	if (items){
+		//skip
+	}else{
+		div=null;
+		return;
+	};
+
+	for (var i = 0; i < len; i++) {
+		var divChildren=$("<div></div>").addClass("bottom"+i),
+			a=$("<a href='javascript:void(0)'></a>");
+
+		a.text(items[i]);
+
+		a.click(function  (e) {
+			var top=$(e.target).parent().position().top,
+				left=$(e.target).parent().position().left,
+				width=parseInt($(e.target).parent().css("width"));
+			$('.promoteBox1').css({
+				"top":(top-parseInt($('.promoteBox1').css("height")))+"px",
+				"left":left+(width-parseInt($('.promoteBox1').css("width")))/2+"px",
+			});
+			$('.promoteBox1').slideToggle(200);
+			e.stopPropagation();
+		});
+		divChildren.append(a);
+		div.append(divChildren);
+	};
+	divChildren=null;
+	return div;
+};
 //写在事件外部,下拉删除按钮
 var F_txt_del_btn=function  (getDate) {
-	var a=$("<a class='txt_del_btn' href='javascript:void(0)'></a>"),
+	var a=$("<a href='javascript:void(0)'></a>").addClass('txt_del_btn'),
 		div =$("<div class='txt_del_btn'></div>"),
 		ul=$("<ul class='txt_del_btn ul_del'></ul>"),
 		list=["删除","置顶","赞"];//,"推荐给好友"
@@ -137,7 +173,7 @@ var F_txt_del_btn=function  (getDate) {
         			$("."+getDate).remove();
         		}, 2000);
         	} else if ($(event.target).text()==="置顶"){
-        		if ($("."+getDate).attr("class")==$(".body").next().attr("class")){
+        		if ($("."+getDate).attr("class")==$(".send_text").next().attr("class")){
         			return;
         		}else{
         			$("."+getDate).hide();
@@ -148,81 +184,28 @@ var F_txt_del_btn=function  (getDate) {
         });
     };
     div.append(a,ul);
+
+    a.click(function  (e) {
+    	if ($(e.target).next().css("display")==="block") {
+    		//skip 冒泡到body click事件。
+    	} else{
+    		$("ul.ul_del").slideUp("fast");
+			$(e.target).next().slideDown("fast");
+			e.stopPropagation();
+    	};
+    	
+    });
     return div;
 };
 
-$("body").click(function  (event) {
-	if ($(event.target).attr("class") !=="txt_del_btn"){
-		$("ul.ul_del").slideUp("fast");
-	}else if($(event.target).attr("class") ==="txt_del_btn" 
-		&& $(event.target)[0].nodeName==="A"){
-		magon.a=$(event.target).next().css("display");
-		if ($(event.target).next().css("display")==="block") {
-			$("ul.ul_del").slideUp("fast");
-		} else{
-			$("ul.ul_del").slideUp("fast");
-			$(event.target).next().slideDown("fast");
-		};
-	}
+$("body").click(function  (e) {
+	$("ul.ul_del").slideUp("fast");
+	$('.promoteBox1').slideUp("fast");
 });
-
-//promise 实践；
-//promise.then(fun).then(fun).catch(fun)
-//resolve执行then；resolve指向then里的函数
-//reject执行catch；reject指向catch里的函数
-//减少过多的嵌套；
-var prom={};
-var ddd=10
-prom.p=new Promise(function  (resolve,reject) {
-	console.log("start promise");
-	resolve(ddd);
-});
-function multiply (input) {
-	return new Promise(function  (resolve,reject) {
-		if (input>10) {
-			console.log("multiply:"+input+"x"+input);
-			resolve(input*input);
-		} else{
-			console.log("add:"+input+"+"+input);
-			reject(input+input)
-		};
-	});
+//生成提示框
+function createPromoteBox () {
+	var div1=$('<div><div><input type="button" value="确认"/></div><div><input type="button" value="取消"/></div></div>').addClass("promoteBox1"),
+		div2=$('<div></div>').addClass("promoteBox2");
+	div1.append(div2);
+	return div1;
 }
-
-//function multiply (input) {
-//	console.log(input*input);
-//}
-//prom.p.then(multiply)
-prom.p.then(multiply).then(function  (result) {
-	console.log("call then"+result);
-}).catch(function  (result) {
-	console.log("call catch"+result);
-});
-
-//jquery
-$("img").click(function  () {
-	$.ajax({
-		url:"img/login.jpg",
-		type:"GET",
-		success:function  (data) {
-			alert("success");
-			$("img")[0].src="img/login.jpg";
-
-		},
-	});
-});
-
-$(".t_ajax").click(function  () {
-	alert("点击成功");
-	$.ajax({
-		url:"weather/weather.json",
-		type:"get",
-		success:function  (data) {
-			$(".t_ajax").html(data["city"]+":"+data["tempreture"]);
-		},
-		error:function  () {
-			alert("失败.");
-		}
-	});
-});
-

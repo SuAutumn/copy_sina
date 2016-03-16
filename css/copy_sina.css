@@ -99,14 +99,24 @@ p{
 
 }
 div.input{
-	margin-bottom: 30px;
+	/*margin-bottom: 30px;*/
 	border: 1px #333;
 }
-
+input.cus_fabu{
+	left: 548px;
+}
 input{
-	float: right;
-	margin:4px 2px ;
+	position: relative;
+	display: inline-block;
+	margin:8px 0px ;
 	cursor: pointer;
+
+	background-color: white;
+	border-style: none;
+	box-shadow: 0 0 2px 1px #999 inset;
+	width: 50px;
+	height: 30px;
+	border-radius: 3px;
 }
 div.local{
 	width: 960px;
@@ -135,11 +145,13 @@ div.kuan_du{
 }
 div.time{
 	font-size: small;
+	color: #999;
+	margin: 0;
 }
 div.fabu{
 	margin-top: 15px;
 	margin-bottom: 0px;
-	border-bottom: 1px solid #aaa;
+	/*border-bottom: 1px solid #aaa;*/
 	word-wrap:break-word;/*对于单字节字符串 允许换行*/
 }
 div.txt_del_btn{
@@ -157,7 +169,6 @@ a.txt_del_btn{
 	border-top:  5px solid #000;
 	position: relative;
 	top: 10px;
-	
 }
 
 a{
@@ -180,5 +191,51 @@ ul.txt_del_btn{
 li {
 	padding: 5px;
 	font-size: small;
-
+}
+div.bottomDock{
+	text-align: center;
+	font-size: small;
+	color: #999;
+	border-top: 1px solid #999;
+}
+div.bottomDock div{
+	display: inline-block;
+	width: 33%;
+	margin: 6px 0;
+}
+div.bottom1{
+	border-left: 1px solid #999;
+	border-right: 1px solid #999;
+}
+div.bottomDock div a{
+	color: #999;
+}
+div.promoteBox1{
+	display: none;
+	width: 150px;
+	height: 70px;
+	position: absolute;
+	/*top: 200px;
+	left: 200px;*/
+	background-color: #fff;
+	box-shadow: 0 0 10px 1px #999;
+	border: 1px solid #999;
+	border-radius: 3px;
+	background-color: #ccc;
+	text-align: center;
+}
+div.promoteBox1 div{
+	display: inline-block;
+	width: 40%;
+	margin: 12px 0;
+}
+div.promoteBox1 div.promoteBox2{
+	margin: 0 auto;
+	display: block;
+	position: relative;
+	width: 0;
+	border-top: 7px solid;
+	border-left: 7px solid;
+	border-right: 7px solid;
+	border-color: #ccc transparent transparent;
 }

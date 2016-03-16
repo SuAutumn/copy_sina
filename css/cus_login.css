@@ -1,3 +1,4 @@
+
 body{
 	font-family: Arial,"Microsoft YaHei",sans-serif;
 	/*background-image: url(./body_bg.jpg);*/
@@ -6,6 +7,15 @@ body{
 	overflow: scroll;
 	margin: 0px;
 	cursor: default;
+
+}
+h1,h2,h3,h4,h5,h6,span,p{
+	vertical-align: middle;
+}
+input[type="text"],input[type="password"]{
+	padding:0 5px;
+}
+span.noteCustomer,span.notePassword{
 
 }
 div.top_fixed_nav{
@@ -32,22 +42,13 @@ div.body{
 	background-image: url(../img/login01.jpg);
 }
 
-h1{
-	margin: 5px;
-	font-weight: lighter;
-	font-size: 16px;
-	display: inline-block;
-	line-height: 25px;
-	color: white;
-	font-family: "Microsoft YaHei";
-}
 div.loginBtn{
 	width: 60px;
 	height: 25px;
 	background-color: transparent;
 	border-radius: 3px;
 	cursor: pointer;
-	margin: 8px 181px ;
+	margin: 0 auto;
 	border-style: none;
 	box-shadow: 0 0 3px 1px #fff inset;
 }
@@ -68,31 +69,39 @@ a.sigin{
 	font-size: small;
 	font-weight: lighter;
 }
+a.send{
+	border-radius: 3px;
+	padding: 7px 10px;
+	box-shadow: 0 0 1px 1px white inset;
+}
+
 input.custoName,input.passwordText {
 	border-style: none;
 	margin: 0;
-	padding: 0;
 	border-radius: 3px;
 	line-height: 25px;
 	box-shadow: 0 0 2px 0px #666 inset;
 	color:#999;
 }
-div.namePass{
-	position: relative;
-	top: 74px;
+table.namePass{
+	width: 62%;
+	height: 90%;
+	padding-top: 12%;
+	padding-bottom: 12%;
+	margin: 0 auto;
+}
+td.rowFirst{
+	width: 20%;
+	color: white;
+	text-align: right;
+}
+td.rowSecond{
+	
+}
+td.rowThird{
+	width: 20%;
+	text-align: left;
 }
 div.sigin{
-	float: right;
-/* position: relative; */
-	position: relative;
-	top: 115px;
-	right: 5px;
-	bottom: 8px;
-}
 
-div.promote{
-	color: red;
-	font-size: small;
-	padding-left: 15px;
-	line-height: 14px;
 }

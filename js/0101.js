@@ -25,22 +25,22 @@ $(".custoName").blur(function  (event) {
 	};
 
 	if (!result) {
-		$(".pCustomer").text("账户名格式不正确");
-		$(".pCustomer").css({"color":"white",
+		$(".noteCustomer").text("格式错误");
+		$(".noteCustomer").css({"color":"white",
 							"font-size":"small"});
 	} else{
-		$(".pCustomer").text("");
+		$(".noteCustomer").text("");
 	};
 });
 
 $(".passwordText").blur(function  () {
 	var password=$(".passwordText").val();
 	if (!password) {
-		$(".pPassword").text("密码不能为空");
-		$(".pPassword").css({"color":"white",
+		$(".notePassword").text("密码为空    ");
+		$(".notePassword").css({"color":"white",
 							"font-size":"small"});
 	} else{
-		$(".pPassword").text("");
+		$(".notePassword").text("");
 	};
 })
 
