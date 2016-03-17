@@ -19,11 +19,11 @@ span.noteCustomer,span.notePassword{
 
 }
 div.top_fixed_nav{
+	box-shadow: 0 1px 1px 0px #999;
 	background-color: rgba(255,255,255,0.6);
 	padding: 5px 100px;
 	margin: 0px;
 	height: 38px;
-	border-radius:3px;
 }
 div.solog{
 	font-family: "Microsoft YaHei";

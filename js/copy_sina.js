@@ -132,27 +132,35 @@ function createBottom () {
 
 	for (var i = 0; i < len; i++) {
 		var divChildren=$("<div></div>").addClass("bottom"+i),
-			a=$("<a href='javascript:void(0)'></a>");
+			a=$("<a href='javascript:void(0)'></a>").addClass("bottom"+i);
 
 		a.text(items[i]);
-
-		a.click(function  (e) {
-			var top=$(e.target).parent().position().top,
-				left=$(e.target).parent().position().left,
-				width=parseInt($(e.target).parent().css("width"));
-			$('.promoteBox1').css({
-				"top":(top-parseInt($('.promoteBox1').css("height")))+"px",
-				"left":left+(width-parseInt($('.promoteBox1').css("width")))/2+"px",
-			});
-			$('.promoteBox1').slideToggle(200);
-			e.stopPropagation();
-		});
 		divChildren.append(a);
 		div.append(divChildren);
+		a.click(function  (e) {
+			if ($(e.target).text()===items[0]) {
+				var top=$(e.target).parent().position().top,
+					left=$(e.target).parent().position().left,
+					width=parseInt($(e.target).parent().css("width"));
+				$('.promoteBox1').css({
+					"top":(top-parseInt($('.promoteBox1').css("height")))+"px",
+					"left":left+(width-parseInt($('.promoteBox1').css("width")))/2+"px",
+				});
+				$('.promoteBox1').fadeToggle();
+			}else if($(e.target).text()===items[1]){
+				//skip
+			}else{
+				$(e.target).css("color") === 'rgb(255, 165, 0)'?
+				$(e.target).css("color","#999"):$(e.target).css("color","orange");
+			}
+			e.stopPropagation();
+		});
 	};
 	divChildren=null;
 	return div;
 };
+
+
 //写在事件外部,下拉删除按钮
 var F_txt_del_btn=function  (getDate) {
 	var a=$("<a href='javascript:void(0)'></a>").addClass('txt_del_btn'),
@@ -179,8 +187,11 @@ var F_txt_del_btn=function  (getDate) {
         			$("."+getDate).hide();
 	        		$("div.send_text").after($("."+getDate));
 	        		$("."+getDate).slideDown("fast");
-        		}
-        	}
+        		};
+        	} else{
+        		$("a.bottom2").css("color") === 'rgb(255, 165, 0)'?
+				$("a.bottom2").css("color","#999"):$("a.bottom2").css("color","orange");
+        	};
         });
     };
     div.append(a,ul);
@@ -199,8 +210,8 @@ var F_txt_del_btn=function  (getDate) {
 };
 
 $("body").click(function  (e) {
-	$("ul.ul_del").slideUp("fast");
-	$('.promoteBox1').slideUp("fast");
+	$("ul.ul_del").hide();
+	$('.promoteBox1').hide();
 });
 //生成提示框
 function createPromoteBox () {
