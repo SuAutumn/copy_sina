@@ -3,7 +3,7 @@
 */
 
 "use strict"
-var magon=[],//数据容器
+var magon=[],//数据容器 [toggleEleDisplay(),]
 	body=document.body;
 
 //time and day
@@ -142,14 +142,17 @@ function createBottom () {
 				var top=$(e.target).parent().position().top,
 					left=$(e.target).parent().position().left,
 					width=parseInt($(e.target).parent().css("width"));
+
 				$('.promoteBox1').css({
 					"top":(top-parseInt($('.promoteBox1').css("height")))+"px",
 					"left":left+(width-parseInt($('.promoteBox1').css("width")))/2+"px",
 				});
-				$('.promoteBox1').fadeToggle();
+				toggleEleDisplay($('.promoteBox1'));
 			}else if($(e.target).text()===items[1]){
 				//skip
+				toggleEleDisplay();
 			}else{
+				toggleEleDisplay();
 				$(e.target).css("color") === 'rgb(255, 165, 0)'?
 				$(e.target).css("color","#999"):$(e.target).css("color","orange");
 			}
@@ -166,7 +169,7 @@ var F_txt_del_btn=function  (getDate) {
 	var a=$("<a href='javascript:void(0)'></a>").addClass('txt_del_btn'),
 		div =$("<div class='txt_del_btn'></div>"),
 		ul=$("<ul class='txt_del_btn ul_del'></ul>"),
-		list=["删除","置顶","赞"];//,"推荐给好友"
+		list=["删除","置顶"];//,"推荐给好友"
 
     for (var i = list.length - 1; i >= 0; i--) {
     	var li=$("<li></li>"),
@@ -200,8 +203,7 @@ var F_txt_del_btn=function  (getDate) {
     	if ($(e.target).next().css("display")==="block") {
     		//skip 冒泡到body click事件。
     	} else{
-    		$("ul.ul_del").slideUp("fast");
-			$(e.target).next().slideDown("fast");
+			toggleEleDisplay($(e.target).next());
 			e.stopPropagation();
     	};
     	
@@ -213,10 +215,24 @@ $("body").click(function  (e) {
 	$("ul.ul_del").hide();
 	$('.promoteBox1').hide();
 });
+
 //生成提示框
 function createPromoteBox () {
 	var div1=$('<div><div><input type="button" value="确认"/></div><div><input type="button" value="取消"/></div></div>').addClass("promoteBox1"),
 		div2=$('<div></div>').addClass("promoteBox2");
 	div1.append(div2);
 	return div1;
+}
+
+//切换元素显示，即页面只能显示一个用户点击生成display：block
+function toggleEleDisplay (arg1) {
+	var arg1=arg1 || $("div.nothing");
+	if (magon[0] === undefined) {
+		magon.push(arg1);
+		magon[0].fadeIn();
+		return;
+	};
+	magon[0].hide();
+	magon[0]=arg1;
+	magon[0].fadeIn();
 }
